@@ -5,7 +5,7 @@ import fib
 
 app = FastAPI()
 
-@app.get("/fib/{n}")
+@app.get("/fib/n=/{n}")
 def read_number(n):
     if n.isdecimal() ==True:
         a = int(n)
