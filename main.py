@@ -1,23 +1,28 @@
 from fastapi import FastAPI
-from typing import Union
-from pydantic import BaseModel
+
 import fib
 
 
 app = FastAPI()
 
-class Number(BaseModel):
-    n: int
+@app.get("/fib/{n}")
+def read_number(n):
+    if n.isdecimal() ==True:
+        a = int(n)
 
-@app.post("/fib")
-async def read_number(number: Number):
-    if number.n > 0:
-        x = fib.fibnum(number.n)
-        return {
-            "result": x
+        if a > 0:
+            x = fib.fibnum(a)
+            return {
+                "result": x
+            }
+        else:
+            return {
+                "status": "400",
+                "message": "Bad request."
             }
     else:
         return {
-            "status": "400",
-            "message": "Bad request."
+                "status": "400",
+                "message": "Bad request."
             }
+        
